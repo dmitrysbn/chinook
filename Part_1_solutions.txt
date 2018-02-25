@@ -28,8 +28,23 @@ Track.find_by(genre_id: Genre.find_by(name: "Electronica/Dance").id, unit_price:
 10: Find all "MPEG audio file" tracks in the genre "Electronica/Dance".
 Track.where(genre_id: Genre.find_by(name: "Electronica/Dance").id, media_type_id: MediaType.where(name: "MPEG audio file"))
 
-Stretch 1: Find all the albums whose titles start with B.
+Part 1 Stretch 1: Find all the albums whose titles start with B.
 Album.where("title LIKE ?", 'B%'')
 
-Stretch 2: Find the all the artists whose names start with A.
+Part 1 Stretch 2: Find the all the artists whose names start with A.
 Artist.where("name LIKE ?", 'A%')
+
+Part 2 Stretch 1: Find the albums recorded by the artist Queen.
+SELECT * FROM albums WHERE artist_id=(SELECT id FROM artists WHERE name='Queen');
+
+Part 2 Stretch 2: Count how many tracks belong to the media type "Protected MPEG-4 video file".
+SELECT COUNT(*) FROM tracks WHERE media_type_id=(SELECT id FROM media_types WHERE name='Protected MPEG-4 video file');
+
+Part 2 Stretch 3: Find the least expensive track that has the genre "Electronica/Dance".
+SELECT MIN(unit_price) FROM tracks WHERE genre_id=(SELECT id FROM genres WHERE name='Electronica/Dance');
+
+Part 2 Stretch 4: Find the all the artists whose names start with A.
+SELECT * FROM artists WHERE name LIKE 'A%';
+
+Part 2 Stretch 5: Find all the tracks that belong to playlist 1.
+SELECT * FROM tracks WHERE id IN (SELECT track_id FROM playlists_tracks WHERE playlist_id='1');
